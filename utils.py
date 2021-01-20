@@ -7,8 +7,17 @@ from nltk.stem.porter import PorterStemmer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.preprocessing.text import one_hot
 import numpy as np
+from tensorflow.keras.models import load_model
 
 nltk.download('stopwords')
+
+
+def get_prediction(embedded_docs):
+    x = np.array(embedded_docs)
+    model = load_model('fake_news_lstm.model')
+    prediction = np.argmax(model.predict(x))
+    print("_____Prediction_____________________:", prediction)
+    return prediction
 
 
 def preprocess(text):
@@ -27,7 +36,7 @@ def preprocess(text):
     stop_words = set(stopwords.words("english"))
     ps = PorterStemmer()
     text = [ps.stem(word) for word in text.split() if not word in stop_words]
-
+    print("___________Txt__________", text)
     # One hot encoding
     onehot_repr = []
     for words in text:
@@ -35,4 +44,5 @@ def preprocess(text):
             onehot_repr.append(i)
 
     embedded_docs = pad_sequences([onehot_repr], padding='pre', maxlen=max_length)
-    return np.array(embedded_docs)
+    print("----------------------Embedded Docs:-------------\n", embedded_docs)
+    return embedded_docs

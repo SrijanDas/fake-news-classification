@@ -1,9 +1,7 @@
 from flask import Flask, render_template, request, url_for
-from tensorflow.keras.models import load_model
-from utils import preprocess
+from utils import get_prediction, preprocess
 
 app = Flask(__name__)
-model = load_model('fake_news_lstm.model')
 
 
 @app.route('/', methods=['GET'])
@@ -20,22 +18,15 @@ def predict():
                 return render_template('index.html')
             else:
                 embedded_docs = preprocess(news)
+                prediction = get_prediction(embedded_docs)
 
                 class_names = ['Real News', 'Fake News']
-                alert_class_names = ['success', 'danger']            
+                alert_class_names = ['success', 'danger']
 
-                pred = model.predict_classes(embedded_docs)
+                prediction_class = class_names[prediction]
+                alert_class = alert_class_names[prediction]
 
-                # print("-----------------------------------")
-                # print("News: ", news)
-                # print("Embedded Docs:\n", embedded_docs)
-                # print("prediction: ", pred)
-                # print("-----------------------------------")
-                
-                prediction = class_names[pred[0][0]]
-                alert_class = alert_class_names[pred[0][0]]
-
-                return render_template('index.html', news=news, prediction=prediction, alert_class=alert_class)
+                return render_template('index.html', news=news, prediction=prediction_class, alert_class=alert_class)
 
         else:
             return render_template('index.html')
