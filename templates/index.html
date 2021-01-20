@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="{{ url_for('predict') }}" method="post">
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label fs-4">Enter news headline here...</label>
+        <textarea class="form-control" name="news" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Predict</button>
+</form>
+
+{% if prediction %}
+    <h6 class="mt-5">News Headline:</h6><h4> {{news}}</h4>
+    <div class="alert alert-{{alert_class}} my-3" role="alert">
+        It is probably a <b>{{prediction}}</b>.
+    </div>
+{% endif %}
+
+
+{% endblock %}
