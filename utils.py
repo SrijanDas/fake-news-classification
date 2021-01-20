@@ -14,15 +14,15 @@ nltk.download('stopwords')
 
 def get_prediction(embedded_docs):
     x = np.array(embedded_docs)
-    model = load_model('fake_news_lstm.model')
-    prediction = np.argmax(model.predict(x))
-#     print("_____Prediction_____________________:", prediction)
-    return prediction
+    model = load_model('fake_news_bid_lstm.model')
+    prediction = model.predict_classes(x)
+    # print("\n\n_____Prediction_____________________:", prediction)
+    return prediction[0][0]
 
 
 def preprocess(text):
     voc_size = 10000
-    max_length = 1000
+    max_length = 100
 
     text = str(text).lower()
     text = re.sub('\[.*?\]', '', text)
