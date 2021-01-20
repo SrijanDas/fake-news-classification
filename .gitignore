@@ -1,3 +1,6 @@
 .ipynb_checkpoints
 __pycache__
 .idea
+input_data
+fake_news_classification.ipynb
+README.md
