@@ -9,7 +9,7 @@ from tensorflow.keras.preprocessing.text import one_hot
 import numpy as np
 from tensorflow.keras.models import load_model
 
-nltk.download('stopwords')
+
 model = load_model('fake_news_bid_lstm.model')
 
 
