@@ -10,21 +10,21 @@ import numpy as np
 from tensorflow.keras.models import load_model
 
 nltk.download('stopwords')
+model = load_model('fake_news_bid_lstm.model')
 
 
 def get_prediction(embedded_docs):
     x = np.array(embedded_docs)
-    model = load_model('fake_news_bid_lstm.model')
     prediction = model.predict_classes(x)
     # print("\n\n_____Prediction_____________________:", prediction)
-    return prediction[0][0]
+    return prediction
 
 
-def preprocess(text):
+def preprocess(news):
     voc_size = 10000
     max_length = 100
 
-    text = str(text).lower()
+    text = str(news).lower()
     text = re.sub('\[.*?\]', '', text)
     text = re.sub('https?://\S+|www\.\S+', '', text)
     text = re.sub('<.*?>+', '', text)
@@ -36,7 +36,7 @@ def preprocess(text):
     stop_words = set(stopwords.words("english"))
     ps = PorterStemmer()
     text = [ps.stem(word) for word in text.split() if not word in stop_words]
-#     print("___________Txt__________", text)
+    # print("\n\n___________Txt__________", text)
     # One hot encoding
     onehot_repr = []
     for words in text:
