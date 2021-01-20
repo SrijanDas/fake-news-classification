@@ -14,14 +14,19 @@ def predict():
     try:
         if request.method == 'POST':
             news = request.form['news']
+            class_names = ['Real News', 'Fake News']
+            alert_class_names = ['success', 'danger']
+
             if news == '':
                 return render_template('index.html')
+            elif len(str(news).split()) <= 4:
+                prediction_class = class_names[1]
+                alert_class = alert_class_names[1]
+                return render_template('index.html', news=news, prediction=prediction_class, alert_class=alert_class)
+
             else:
                 embedded_docs = preprocess(news)
                 prediction = get_prediction(embedded_docs)
-
-                class_names = ['Real News', 'Fake News']
-                alert_class_names = ['success', 'danger']
 
                 prediction_class = class_names[prediction]
                 alert_class = alert_class_names[prediction]
@@ -36,4 +41,4 @@ def predict():
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)

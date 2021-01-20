@@ -16,8 +16,7 @@ model = load_model('fake_news_bid_lstm.model')
 def get_prediction(embedded_docs):
     x = np.array(embedded_docs)
     prediction = model.predict_classes(x)
-    # print("\n\n_____Prediction_____________________:", prediction)
-    return prediction
+    return prediction[0][0]
 
 
 def preprocess(news):
