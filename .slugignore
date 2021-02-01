@@ -1,3 +1,4 @@
 input_data
 *.ipynb
 *.md
+bid_lstm.model

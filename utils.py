@@ -10,7 +10,7 @@ import numpy as np
 from tensorflow.keras.models import load_model
 
 
-model = load_model('fake_news_bid_lstm.model')
+model = load_model('lstm.model')
 
 
 def get_prediction(embedded_docs):
