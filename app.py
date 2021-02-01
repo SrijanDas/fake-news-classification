@@ -3,7 +3,7 @@ from tensorflow.keras.models import load_model
 from utils import preprocess
 
 app = Flask(__name__)
-model = load_model('fake_news_lstm.model')
+model = load_model('lstm.model')
 
 
 @app.route('/', methods=['GET'])
