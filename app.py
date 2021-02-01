@@ -14,7 +14,7 @@ def predict():
     try:
         if request.method == 'POST':
             news = request.form['news']
-            class_names = ['Real News', 'Fake News']
+            class_names = ['True', 'Fake']
             alert_class_names = ['success', 'danger']
 
             if news == '':
