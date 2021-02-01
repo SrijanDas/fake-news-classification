@@ -1,3 +1,3 @@
 # fake-news-classification
 
-## url - https://fake-news-pred.herokuapp.com/
+## webapp - https://fake-news-pred.herokuapp.com/
